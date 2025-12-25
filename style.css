@@ -1,0 +1,131 @@
+:root {
+    --bg-color: #f3f4f6;
+    --board-bg: #111; /* Grid lines color essentially */
+    --cell-size: 50px; /* Base size */
+    --accent-color: #2563eb;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+.app-container { width: 100%; max-width: 800px; text-align: center; }
+
+header { margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+h1 { color: #1f2937; }
+
+/* --- KAKURO BOARD --- */
+.kakuro-board {
+    display: grid;
+    /* Grid columns JS set karega based on puzzle size */
+    gap: 1px; /* Creates the border lines */
+    background-color: var(--board-bg);
+    border: 2px solid #111;
+    margin: 0 auto;
+    width: fit-content;
+}
+
+.cell {
+    width: var(--cell-size);
+    height: var(--cell-size);
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+}
+
+/* 1. SOLID BLOCK (Empty Black Cell) */
+.cell.block {
+    background-color: #222; /* Almost black */
+    cursor: default;
+}
+
+/* 2. CLUE CELL (The Diagonal One) */
+.cell.clue {
+    background-color: #333; /* Dark Grey */
+    color: white;
+    cursor: default;
+    /* The Diagonal Line Magic: linear-gradient */
+    background-image: linear-gradient(
+        to bottom right, 
+        transparent 46%, 
+        #777 47%, 
+        #777 53%, 
+        transparent 54%
+    );
+}
+
+/* Positioning the tiny numbers in Clue Cell */
+.clue-val {
+    position: absolute;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.clue-down {
+    bottom: 4px;
+    left: 4px;
+    color: #fff;
+}
+
+.clue-right {
+    top: 4px;
+    right: 4px;
+    color: #fff;
+}
+
+/* 3. INPUT CELL (White, Playable) */
+.cell.input.selected {
+    background-color: #bfdbfe; /* Light Blue */
+}
+.cell.input {
+    color: var(--accent-color);
+}
+.cell.error {
+    background-color: #fecaca; /* Red tint */
+    color: #dc2626;
+}
+
+/* --- CONTROLS --- */
+.game-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.numpad {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.num-btn {
+    padding: 15px;
+    font-size: 1.2rem;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.num-btn:active { background: #e5e7eb; }
+
+/* Desktop Adjustment */
+@media (min-width: 768px) {
+    .game-layout { flex-direction: row; justify-content: center; align-items: flex-start; }
+    .numpad { display: none; } /* Hide numpad on desktop */
+}
