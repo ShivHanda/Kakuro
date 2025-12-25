@@ -1,0 +1,2 @@
+# Kakuro
+Daily Kakuro Generator
