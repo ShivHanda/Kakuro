@@ -1,0 +1,12 @@
+{
+    "date": "Initial Setup",
+    "board_size": 3,
+    "puzzle": [
+        {"row": 0, "col": 0, "type": "block"},
+        {"row": 0, "col": 1, "type": "clue", "down": 16, "right": 0},
+        {"row": 0, "col": 2, "type": "clue", "down": 3, "right": 0},
+        {"row": 1, "col": 0, "type": "clue", "down": 0, "right": 4},
+        {"row": 1, "col": 1, "type": "empty", "val": 0},
+        {"row": 1, "col": 2, "type": "empty", "val": 0}
+    ]
+}
