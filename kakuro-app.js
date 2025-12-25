@@ -173,10 +173,11 @@ function setupEventListeners() {
 
     // 3. Extra Actions
     // Abhi ke liye bas alert daal rahe hain kyunki validation logic complex hai
+   // NEW CODE
     const checkBtn = document.getElementById('check-btn');
     if(checkBtn) {
         checkBtn.addEventListener('click', () => {
-            alert("Validation logic will be added in the next step!");
+            validateBoard();
         });
     }
 }
