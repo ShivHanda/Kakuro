@@ -180,3 +180,113 @@ function setupEventListeners() {
         });
     }
 }
+
+// --- Validation Logic (Paste at the bottom) ---
+
+function validateBoard() {
+    let errorFound = false;
+    let isFull = true;
+    
+    // Reset visual errors first
+    document.querySelectorAll('.cell.input').forEach(c => c.classList.remove('error'));
+
+    // Iterate over all CLUE cells to check their sums
+    for (const key in kakuroData) {
+        const cell = kakuroData[key];
+        if (cell.type !== 'clue') continue;
+
+        // 1. Check "Down" Clue
+        if (cell.down > 0) {
+            validateRun(cell.row, cell.col, 'down', cell.down);
+        }
+
+        // 2. Check "Right" Clue
+        if (cell.right > 0) {
+            validateRun(cell.row, cell.col, 'right', cell.right);
+        }
+    }
+
+    // Helper to validate a specific run (row or column segment)
+    function validateRun(startR, startC, direction, targetSum) {
+        let currentSum = 0;
+        let cellsInRun = [];
+        let numbersSeen = new Set();
+        let runIsFull = true;
+
+        let r = startR;
+        let c = startC;
+
+        // Walk through the run until we hit a block or edge
+        while (true) {
+            if (direction === 'down') r++;
+            else c++;
+
+            const nextKey = `${r},${c}`;
+            const nextCellData = kakuroData[nextKey];
+
+            // Stop if edge or not an input cell (block/clue)
+            if (!nextCellData || nextCellData.type !== 'empty') break;
+
+            // Get user value
+            const val = userGrid[nextKey];
+            const cellDiv = document.querySelector(`.cell[data-r='${r}'][data-c='${c}']`);
+            
+            cellsInRun.push(cellDiv);
+
+            if (!val) {
+                runIsFull = false;
+                isFull = false;
+            } else {
+                currentSum += val;
+                // Check Duplicates (Kakuro rule: No repeats in a sum)
+                if (numbersSeen.has(val)) {
+                    cellDiv.classList.add('error');
+                    errorFound = true;
+                }
+                numbersSeen.add(val);
+            }
+        }
+
+        // Check Sum (Only if run is fully filled)
+        if (runIsFull) {
+            if (currentSum !== targetSum) {
+                // Mark all cells in this run as error
+                cellsInRun.forEach(div => div.classList.add('error'));
+                errorFound = true;
+            }
+        } else {
+            // Optional: Check if sum already exceeded target while partially filled
+            if (currentSum > targetSum) {
+                cellsInRun.forEach(div => {
+                    if(div.textContent) div.classList.add('error');
+                });
+                errorFound = true;
+            }
+        }
+    }
+
+    // If board is full and no errors found -> WIN!
+    if (isFull && !errorFound) {
+        showWin();
+    } else if (errorFound) {
+        // Optional shake animation or alert
+        console.log("Errors found");
+    }
+}
+
+function showWin() {
+    const overlay = document.getElementById('win-overlay');
+    // Stop timer logic here if you added a timer
+    document.getElementById('final-time').textContent = "Great Job!"; 
+    overlay.classList.remove('hidden');
+    
+    // Close button logic
+    document.getElementById('close-modal-btn').addEventListener('click', () => {
+        overlay.classList.add('hidden');
+    });
+    
+    // Confetti launch (Agar aapne wo script add ki hai)
+    if (window.confetti) {
+        confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+    }
+}
