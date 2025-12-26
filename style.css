@@ -1,16 +1,39 @@
 :root {
+    /* --- Light Mode (Default) --- */
     --bg-color: #f8f9fa;
     --grid-bg: #ffffff;
     --border-thick: 2px solid #343a40;
     --border-thin: 1px solid #dee2e6;
     --text-primary: #212529;
+    --text-secondary: #6c757d;
     --accent-color: #0d6efd; 
     --clue-bg: #e9ecef;
     --clue-text: #495057;
     --line-color: #adb5bd;
-    --error-color: #ffe6e6; /* Red bg for errors */
-    --error-text: #dc3545;
     --highlight-cell: #e7f1ff;
+    --error-bg: #ffe6e6;
+    --error-text: #dc3545;
+    --btn-bg: #343a40;
+    --btn-text: #ffffff;
+}
+
+/* --- DARK MODE OVERRIDES (Class Based) --- */
+body.dark-mode {
+    --bg-color: #292c35;         /* Sudoku Dark BG */
+    --grid-bg: #2d3748;          /* Sudoku Grid BG */
+    --border-thick: 2px solid #94a3b8;
+    --border-thin: 1px solid #4a5568;
+    --text-primary: #f1f5f9;
+    --text-secondary: #cbd5e0;
+    --accent-color: #63b3ed;     /* Lighter Blue */
+    --clue-bg: #1a202c;          /* Darker for non-playable cells */
+    --clue-text: #a0aec0;
+    --line-color: #4a5568;
+    --highlight-cell: #2c5282;   /* Sudoku Highlight */
+    --error-bg: #742a2a;
+    --error-text: #feb2b2;
+    --btn-bg: #4a5568;
+    --btn-text: #f1f5f9;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -20,27 +43,54 @@ body {
     background-color: var(--bg-color);
     color: var(--text-primary);
     display: flex; justify-content: center; min-height: 100vh; padding: 20px;
+    transition: background-color 0.2s linear, color 0.2s linear;
 }
 
 .app-container { width: 100%; max-width: 900px; text-align: center; }
 
 header {
     display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 20px; border-bottom: 2px solid #e9ecef; padding-bottom: 15px;
+    margin-bottom: 20px; border-bottom: 2px solid var(--border-thin); padding-bottom: 15px;
 }
 
-h1 { font-size: 1.5rem; color: #343a40; }
+h1 { font-size: 1.5rem; color: var(--text-primary); }
 
-.game-layout {
-    display: flex; flex-direction: column; align-items: center; gap: 30px;
+/* --- THEME TOGGLE (Sudoku / Florin Pop Style) --- */
+.checkbox { opacity: 0; position: absolute; }
+
+.checkbox-label {
+    background-color: #111;
+    width: 50px; height: 26px; border-radius: 50px;
+    position: relative; padding: 5px; cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center;
 }
 
-/* --- KAKURO BOARD --- */
+.fa-moon { color: #f1c40f; }
+.fa-sun { color: #f39c12; }
+
+.checkbox-label .ball {
+    background-color: #fff;
+    width: 22px; height: 22px; position: absolute;
+    left: 2px; top: 2px; border-radius: 50%;
+    transition: transform 0.2s linear;
+}
+
+.checkbox:checked + .checkbox-label .ball {
+    transform: translateX(24px);
+}
+
+/* --- Dark Mode specific UI adjustments --- */
+body.dark-mode .checkbox-label { background-color: #111; } 
+body.dark-mode .modal { background-color: #2d3748; border: 1px solid #4a5568; }
+
+/* --- GAME BOARD --- */
+.game-layout { display: flex; flex-direction: column; align-items: center; gap: 30px; }
+
 .kakuro-board {
     display: grid; gap: 0; 
     background-color: var(--grid-bg);
     border: var(--border-thick);
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     margin: 0 auto;
 }
 
@@ -51,22 +101,17 @@ h1 { font-size: 1.5rem; color: #343a40; }
     display: flex; justify-content: center; align-items: center;
     font-size: 1.5rem; font-weight: 500;
     cursor: pointer; position: relative; user-select: none;
-    background-color: white;
+    background-color: var(--grid-bg);
+    transition: background-color 0.1s;
 }
 
-/* 1. SOLID BLOCK */
 .cell.block { background-color: var(--clue-bg); cursor: default; }
 
-/* 2. CLUE CELL (Fix Diagonal Line) */
-/* --- CSS Update --- */
-
-/* 1. CLUE CELL (The Diagonal Line) */
+/* Diagonal Line - Uses var(--line-color) so it updates in Dark Mode */
 .cell.clue {
     background-color: var(--clue-bg);
     color: var(--clue-text);
     cursor: default;
-    position: relative;
-    
     background-image: linear-gradient(
         to top right, 
         transparent 47%, 
@@ -76,72 +121,56 @@ h1 { font-size: 1.5rem; color: #343a40; }
     );
 }
 
-.clue-val {
-    position: absolute;
-    font-size: 0.75rem; 
-    font-weight: 700;
-    line-height: 1;
-    z-index: 5;
-}
+.clue-val { position: absolute; font-size: 0.75rem; font-weight: 700; line-height: 1; z-index: 2; }
+.clue-down { bottom: 4px; left: 4px; }
+.clue-right { top: 4px; right: 4px; }
 
-.clue-down {
-    bottom: 3px;
-    left: 4px; 
-    text-align: left;
-}
-
-.clue-right {
-    top: 4px;
-    right: 4px;
-    text-align: right;
-}
-/* 3. INPUT CELL */
 .cell.input { color: var(--accent-color); font-weight: 600; }
-.cell.input:hover { background-color: #f1f3f5; }
+.cell.input:hover { background-color: var(--highlight-cell); }
 .cell.input.selected { background-color: var(--highlight-cell); border: 2px solid var(--accent-color); }
 
-/* --- ERROR STATE (Wrong Number) --- */
-.cell.error {
-    color: var(--error-text) !important;
-    background-color: var(--error-color) !important;
-}
+.cell.error { background-color: var(--error-bg) !important; color: var(--error-text) !important; }
 
 /* --- CONTROLS --- */
 .controls-sidebar { width: 100%; max-width: 400px; }
 .numpad { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 10px; }
+
 .num-btn {
-    padding: 15px; font-size: 1.2rem; background: white; border: 1px solid #dee2e6;
+    padding: 15px; font-size: 1.2rem; 
+    background-color: var(--grid-bg); /* Adaptive BG */
+    border: 1px solid var(--border-thin);
     border-radius: 6px; cursor: pointer; color: var(--accent-color); font-weight: 600;
 }
-.num-btn:active { background-color: var(--highlight-cell); transform: translateY(1px); }
+.num-btn:active { background-color: var(--highlight-cell); }
 .action-btn { background-color: #fff0f1; color: #dc3545; border-color: #f5c2c7; }
 
+/* Dark mode overrides for specific buttons */
+body.dark-mode .action-btn { background-color: #742a2a; color: #feb2b2; border-color: #9b2c2c; }
+
 .secondary-btn {
-    width: 100%; padding: 12px; background-color: #343a40; margin-top: 15px;
-    color: #fff; font-weight: 600; border: none; border-radius: 6px; cursor: pointer;
+    width: 100%; padding: 12px; background-color: var(--btn-bg); margin-top: 15px;
+    color: var(--btn-text); font-weight: 600; border: none; border-radius: 6px; cursor: pointer;
 }
-.secondary-btn:hover { background-color: #212529; }
+.secondary-btn:hover { opacity: 0.9; }
 
-/* Desktop Adjustment */
-@media (min-width: 850px) {
-    .game-layout { flex-direction: row; justify-content: center; align-items: flex-start; }
-    .numpad { display: none; } 
-    .controls-sidebar { width: 250px; text-align: left; }
-}
-
-/* Overlay */
+/* --- Overlay --- */
 #win-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.6); backdrop-filter: blur(2px);
     display: flex; justify-content: center; align-items: center; z-index: 1000;
 }
 #win-overlay.hidden { display: none; }
 .modal {
     background: white; padding: 30px; border-radius: 12px; text-align: center;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3); color: var(--text-primary);
 }
-.modal h2 { color: #0d6efd; margin-bottom: 10px; }
 .modal button {
-    margin-top: 20px; padding: 10px 20px; background: #0d6efd;
+    margin-top: 20px; padding: 10px 20px; background: var(--accent-color);
     color: white; border: none; border-radius: 6px; cursor: pointer;
+}
+
+@media (min-width: 850px) {
+    .game-layout { flex-direction: row; justify-content: center; align-items: flex-start; }
+    .numpad { display: none; } 
+    .controls-sidebar { width: 250px; text-align: left; }
 }
