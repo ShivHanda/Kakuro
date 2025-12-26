@@ -5,10 +5,11 @@
     --border-thin: 1px solid #dee2e6;
     --text-primary: #212529;
     --accent-color: #0d6efd; 
-    --clue-bg: #e9ecef; /* Light Grey for Clue/Block cells */
+    --clue-bg: #e9ecef;
     --clue-text: #495057;
     --line-color: #adb5bd;
-    --error-color: #f8d7da;
+    --error-color: #ffe6e6; /* Red bg for errors */
+    --error-text: #dc3545;
     --highlight-cell: #e7f1ff;
 }
 
@@ -18,10 +19,7 @@ body {
     font-family: 'Inter', sans-serif;
     background-color: var(--bg-color);
     color: var(--text-primary);
-    display: flex;
-    justify-content: center;
-    min-height: 100vh;
-    padding: 20px;
+    display: flex; justify-content: center; min-height: 100vh; padding: 20px;
 }
 
 .app-container { width: 100%; max-width: 900px; text-align: center; }
@@ -39,9 +37,7 @@ h1 { font-size: 1.5rem; color: #343a40; }
 
 /* --- KAKURO BOARD --- */
 .kakuro-board {
-    display: grid;
-    /* Columns will be set by JS */
-    gap: 0; 
+    display: grid; gap: 0; 
     background-color: var(--grid-bg);
     border: var(--border-thick);
     box-shadow: 0 4px 6px rgba(0,0,0,0.05);
@@ -49,69 +45,49 @@ h1 { font-size: 1.5rem; color: #343a40; }
 }
 
 .cell {
-    width: 60px; /* Bigger cells for better visibility */
-    height: 60px;
+    width: 60px; height: 60px;
     border-right: var(--border-thin);
     border-bottom: var(--border-thin);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.5rem;
-    font-weight: 500;
-    cursor: pointer;
-    position: relative;
-    user-select: none;
+    display: flex; justify-content: center; align-items: center;
+    font-size: 1.5rem; font-weight: 500;
+    cursor: pointer; position: relative; user-select: none;
     background-color: white;
 }
 
 /* 1. SOLID BLOCK */
-.cell.block {
-    background-color: var(--clue-bg); 
-    cursor: default;
-}
+.cell.block { background-color: var(--clue-bg); cursor: default; }
 
-/* 2. CLUE CELL */
+/* 2. CLUE CELL (Fix Diagonal Line) */
 .cell.clue {
     background-color: var(--clue-bg);
     color: var(--clue-text);
     cursor: default;
-    /* Cleaner Diagonal Line */
     background-image: linear-gradient(
         to bottom right, 
-        transparent 48%, 
-        var(--line-color) 49%, 
-        var(--line-color) 51%, 
-        transparent 52%
+        transparent 47%, 
+        var(--line-color) 48%, 
+        var(--line-color) 52%, 
+        transparent 53%
     );
 }
 
-/* Tiny numbers positioning - Fixed to not touch the line */
+/* Fixed Clue Positioning */
 .clue-val {
     position: absolute;
-    font-size: 0.85rem; 
-    font-weight: 700;
-    line-height: 1;
+    font-size: 0.8rem; font-weight: 700; line-height: 1;
 }
-
-.clue-down {
-    bottom: 5px;
-    left: 5px; 
-}
-
-.clue-right {
-    top: 5px;
-    right: 5px;
-}
+.clue-down { bottom: 4px; left: 4px; }  /* Column Sum */
+.clue-right { top: 4px; right: 4px; }   /* Row Sum */
 
 /* 3. INPUT CELL */
 .cell.input { color: var(--accent-color); font-weight: 600; }
 .cell.input:hover { background-color: #f1f3f5; }
 .cell.input.selected { background-color: var(--highlight-cell); border: 2px solid var(--accent-color); }
 
-/* Error State */
+/* --- ERROR STATE (Wrong Number) --- */
 .cell.error {
-    background-color: var(--error-color);
-    color: #842029;
+    color: var(--error-text) !important;
+    background-color: var(--error-color) !important;
 }
 
 /* --- CONTROLS --- */
@@ -125,16 +101,31 @@ h1 { font-size: 1.5rem; color: #343a40; }
 .action-btn { background-color: #fff0f1; color: #dc3545; border-color: #f5c2c7; }
 
 .secondary-btn {
-    width: 100%; padding: 12px; background-color: #e9ecef; margin-top: 15px;
-    color: #495057; font-weight: 600; border: 1px solid #ced4da; border-radius: 6px;
+    width: 100%; padding: 12px; background-color: #343a40; margin-top: 15px;
+    color: #fff; font-weight: 600; border: none; border-radius: 6px; cursor: pointer;
 }
-.secondary-btn:hover { background-color: #dee2e6; }
-.home-link { display: block; margin-top: 15px; color: #6c757d; text-decoration: none; font-size: 0.9rem; }
-.home-link:hover { text-decoration: underline; }
+.secondary-btn:hover { background-color: #212529; }
 
 /* Desktop Adjustment */
 @media (min-width: 850px) {
     .game-layout { flex-direction: row; justify-content: center; align-items: flex-start; }
     .numpad { display: none; } 
     .controls-sidebar { width: 250px; text-align: left; }
+}
+
+/* Overlay */
+#win-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex; justify-content: center; align-items: center; z-index: 1000;
+}
+#win-overlay.hidden { display: none; }
+.modal {
+    background: white; padding: 30px; border-radius: 12px; text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+.modal h2 { color: #0d6efd; margin-bottom: 10px; }
+.modal button {
+    margin-top: 20px; padding: 10px 20px; background: #0d6efd;
+    color: white; border: none; border-radius: 6px; cursor: pointer;
 }
