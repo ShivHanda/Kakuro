@@ -58,12 +58,17 @@ h1 { font-size: 1.5rem; color: #343a40; }
 .cell.block { background-color: var(--clue-bg); cursor: default; }
 
 /* 2. CLUE CELL (Fix Diagonal Line) */
+/* --- CSS Update --- */
+
+/* 1. CLUE CELL (The Diagonal Line) */
 .cell.clue {
     background-color: var(--clue-bg);
     color: var(--clue-text);
     cursor: default;
+    position: relative;
+    
     background-image: linear-gradient(
-        to bottom right, 
+        to top right, 
         transparent 47%, 
         var(--line-color) 48%, 
         var(--line-color) 52%, 
@@ -71,14 +76,25 @@ h1 { font-size: 1.5rem; color: #343a40; }
     );
 }
 
-/* Fixed Clue Positioning */
 .clue-val {
     position: absolute;
-    font-size: 0.8rem; font-weight: 700; line-height: 1;
+    font-size: 0.75rem; 
+    font-weight: 700;
+    line-height: 1;
+    z-index: 5;
 }
-.clue-down { bottom: 4px; left: 4px; }  /* Column Sum */
-.clue-right { top: 4px; right: 4px; }   /* Row Sum */
 
+.clue-down {
+    bottom: 3px;
+    left: 4px; 
+    text-align: left;
+}
+
+.clue-right {
+    top: 4px;
+    right: 4px;
+    text-align: right;
+}
 /* 3. INPUT CELL */
 .cell.input { color: var(--accent-color); font-weight: 600; }
 .cell.input:hover { background-color: #f1f3f5; }
