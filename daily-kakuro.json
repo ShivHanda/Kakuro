@@ -11,31 +11,31 @@
         ],
         [
             null,
-            3,
             8,
-            null,
-            null
-        ],
-        [
-            null,
-            5,
             1,
-            9,
+            null,
+            null
+        ],
+        [
+            null,
+            4,
+            6,
+            1,
             null
         ],
         [
             null,
             null,
-            6,
-            2,
-            8
+            8,
+            9,
+            5
         ],
         [
             null,
             null,
             null,
             6,
-            9
+            8
         ]
     ],
     "puzzle": [
@@ -48,7 +48,7 @@
             "row": 0,
             "col": 1,
             "type": "clue",
-            "down": 8,
+            "down": 12,
             "right": 0
         },
         {
@@ -73,38 +73,38 @@
             "col": 0,
             "type": "clue",
             "down": 0,
+            "right": 9
+        },
+        {
+            "row": 1,
+            "col": 1,
+            "type": "empty"
+        },
+        {
+            "row": 1,
+            "col": 2,
+            "type": "empty"
+        },
+        {
+            "row": 1,
+            "col": 3,
+            "type": "clue",
+            "down": 16,
+            "right": 0
+        },
+        {
+            "row": 1,
+            "col": 4,
+            "type": "block"
+        },
+        {
+            "row": 2,
+            "col": 0,
+            "type": "clue",
+            "down": 0,
             "right": 11
         },
         {
-            "row": 1,
-            "col": 1,
-            "type": "empty"
-        },
-        {
-            "row": 1,
-            "col": 2,
-            "type": "empty"
-        },
-        {
-            "row": 1,
-            "col": 3,
-            "type": "clue",
-            "down": 17,
-            "right": 0
-        },
-        {
-            "row": 1,
-            "col": 4,
-            "type": "block"
-        },
-        {
-            "row": 2,
-            "col": 0,
-            "type": "clue",
-            "down": 0,
-            "right": 15
-        },
-        {
             "row": 2,
             "col": 1,
             "type": "empty"
@@ -123,7 +123,7 @@
             "row": 2,
             "col": 4,
             "type": "clue",
-            "down": 17,
+            "down": 13,
             "right": 0
         },
         {
@@ -136,7 +136,7 @@
             "col": 1,
             "type": "clue",
             "down": 0,
-            "right": 16
+            "right": 22
         },
         {
             "row": 3,
@@ -168,7 +168,7 @@
             "col": 2,
             "type": "clue",
             "down": 0,
-            "right": 15
+            "right": 14
         },
         {
             "row": 4,
