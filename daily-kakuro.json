@@ -1,17 +1,124 @@
 {
-    "date": "Test Puzzle",
-    "board_size": 3,
+    "date": "2025-12-26",
+    "board_size": 4,
+    "solution": [
+        [
+            null,
+            null,
+            null,
+            null
+        ],
+        [
+            null,
+            9,
+            7,
+            null
+        ],
+        [
+            null,
+            3,
+            1,
+            2
+        ],
+        [
+            null,
+            null,
+            3,
+            1
+        ]
+    ],
     "puzzle": [
-        {"row": 0, "col": 0, "type": "block"},
-        {"row": 0, "col": 1, "type": "clue", "down": 3, "right": 0},
-        {"row": 0, "col": 2, "type": "clue", "down": 4, "right": 0},
-        
-        {"row": 1, "col": 0, "type": "clue", "down": 0, "right": 4},
-        {"row": 1, "col": 1, "type": "empty"},
-        {"row": 1, "col": 2, "type": "empty"},
-
-        {"row": 2, "col": 0, "type": "clue", "down": 0, "right": 3},
-        {"row": 2, "col": 1, "type": "empty"},
-        {"row": 2, "col": 2, "type": "empty"}
+        {
+            "row": 0,
+            "col": 0,
+            "type": "block"
+        },
+        {
+            "row": 0,
+            "col": 1,
+            "type": "clue",
+            "down": 12,
+            "right": 0
+        },
+        {
+            "row": 0,
+            "col": 2,
+            "type": "clue",
+            "down": 11,
+            "right": 0
+        },
+        {
+            "row": 0,
+            "col": 3,
+            "type": "clue",
+            "down": 3,
+            "right": 0
+        },
+        {
+            "row": 1,
+            "col": 0,
+            "type": "clue",
+            "down": 0,
+            "right": 16
+        },
+        {
+            "row": 1,
+            "col": 1,
+            "type": "empty"
+        },
+        {
+            "row": 1,
+            "col": 2,
+            "type": "empty"
+        },
+        {
+            "row": 1,
+            "col": 3,
+            "type": "block"
+        },
+        {
+            "row": 2,
+            "col": 0,
+            "type": "clue",
+            "down": 0,
+            "right": 6
+        },
+        {
+            "row": 2,
+            "col": 1,
+            "type": "empty"
+        },
+        {
+            "row": 2,
+            "col": 2,
+            "type": "empty"
+        },
+        {
+            "row": 2,
+            "col": 3,
+            "type": "empty"
+        },
+        {
+            "row": 3,
+            "col": 0,
+            "type": "block"
+        },
+        {
+            "row": 3,
+            "col": 1,
+            "type": "clue",
+            "down": 0,
+            "right": 4
+        },
+        {
+            "row": 3,
+            "col": 2,
+            "type": "empty"
+        },
+        {
+            "row": 3,
+            "col": 3,
+            "type": "empty"
+        }
     ]
 }
