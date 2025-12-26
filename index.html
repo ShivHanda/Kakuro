@@ -15,13 +15,12 @@
             <h1>Daily Kakuro</h1>
             <div class="info-bar">
                 <div id="date-display">Loading...</div>
-                </div>
+            </div>
         </header>
 
         <div class="game-layout">
             
-            <div id="game-board" class="kakuro-board">
-                </div>
+            <div id="game-board" class="kakuro-board"></div>
 
             <aside class="controls-sidebar">
                 <div class="numpad">
@@ -38,13 +37,25 @@
                 </div>
                 
                 <div class="extra-actions">
-                    <p class="instruction-text">Tap a white cell and enter a number (1-9). Sums must match the clues.</p>
+                    <button id="solve-btn" class="secondary-btn">👁️ Show Solution</button>
+                    <p class="instruction-text">
+                        Tap a white cell. Numbers turn <span style="color:#dc3545; font-weight:bold;">RED</span> if wrong.
+                    </p>
                 </div>
             </aside>
         </div>
 
     </div>
 
+    <div id="win-overlay" class="hidden">
+        <div class="modal">
+            <h2>🎉 Puzzle Solved! 🎉</h2>
+            <p>You are a genius!</p>
+            <button id="close-modal-btn">Play Again</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script src="kakuro-app.js"></script>
 
 </body>
