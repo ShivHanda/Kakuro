@@ -1,239 +1,203 @@
 import json
+import random
 from datetime import datetime
 
-def generate_daily_puzzle():
-    today = datetime.now().strftime("%Y-%m-%d")
-    
-    # --- 5x5 VALID PUZZLE CONFIGURATION ---
-    # Solution Matrix (Correct Answers)
-    # None = Block/Clue Cell
-    solution_grid = [
-        [None, None, None, None, None], # Row 0
-        [None, 9,    7,    None, None], # Row 1
-        [None, 3,    1,    2,    None], # Row 2
-        [None, None, 3,    1,    None], # Row 3
-        [None, None, None, 3,    1   ]  # Row 4
+# --- CONFIGURATION ---
+GRID_SIZE = 5
+
+# 0 = Block (Black cell)
+# 1 = Playable Cell (White cell)
+# Ye bas shapes hain. Numbers computer khud soch ke bharega har baar naye.
+PATTERNS = [
+    [ # Pattern 1: Classic
+        [0, 0, 0, 0, 0],
+        [0, 1, 1, 1, 0],
+        [0, 1, 1, 1, 1],
+        [0, 0, 1, 1, 1],
+        [0, 0, 0, 1, 1]
+    ],
+    [ # Pattern 2: The Cross
+        [0, 0, 0, 0, 0],
+        [0, 0, 1, 1, 0],
+        [0, 1, 1, 1, 1],
+        [0, 1, 1, 0, 0],
+        [0, 0, 0, 0, 0] # Last row padded
+    ],
+    [ # Pattern 3: Stairs
+        [0, 0, 0, 0, 0],
+        [0, 1, 1, 0, 0],
+        [0, 1, 1, 1, 0],
+        [0, 0, 1, 1, 1],
+        [0, 0, 0, 1, 1]
+    ],
+    [ # Pattern 4: Dense
+        [0, 0, 0, 0, 0],
+        [0, 1, 1, 1, 1],
+        [0, 1, 1, 1, 1],
+        [0, 1, 1, 1, 1],
+        [0, 1, 1, 1, 1]
+    ],
+     [ # Pattern 5: Corner Heavy
+        [0, 0, 0, 0, 0],
+        [0, 1, 1, 0, 0],
+        [0, 1, 1, 1, 0],
+        [0, 0, 1, 1, 1],
+        [0, 0, 0, 1, 1]
     ]
+]
 
-    # Puzzle Structure
-    # type: block | clue | empty
-    # Logic:
-    # R1: 9+7=16
-    # R2: 3+1+2=6
-    # R3: 3+1=4
-    # R4: 3+1=4
+def is_safe(board, row, col, num):
+    """Check if 'num' can be placed at board[row][col] without violating Kakuro rules."""
     
-    # C1: 9+3=12
-    # C2: 7+1+3=11
-    # C3: 2+1+3=6
-    # C4: 1 (Ye last wala simple rakha hai valid hone ke liye)
+    # 1. Row Constraint: Check current continuous horizontal run
+    # Find start of the run
+    c_start = col
+    while c_start > 0 and board[row][c_start-1] != 0:
+        c_start -= 1
+    
+    # Find end of the run
+    c_end = col
+    while c_end < GRID_SIZE - 1 and board[row][c_end+1] != 0:
+        c_end += 1
+        
+    # Check for duplicates in this run
+    for c in range(c_start, c_end + 1):
+        if board[row][c] == num:
+            return False
 
-    puzzle_data = {
-        "date": today,
-        "board_size": 5,
-        "solution": solution_grid,
-        "puzzle": [
-            # --- ROW 0 (Header Row) ---
-            {"row": 0, "col": 0, "type": "block"},
-            {"row": 0, "col": 1, "type": "clue", "down": 12, "right": 0},
-            {"row": 0, "col": 2, "type": "clue", "down": 11, "right": 0},
-            {"row": 0, "col": 3, "type": "clue", "down": 2, "right": 0}, # Down sum for Row 2 col 3
-            {"row": 0, "col": 4, "type": "block"}, # Last column block
-
-            # --- ROW 1 ---
-            {"row": 1, "col": 0, "type": "clue", "down": 0, "right": 16},
-            {"row": 1, "col": 1, "type": "empty"}, # Ans: 9
-            {"row": 1, "col": 2, "type": "empty"}, # Ans: 7
-            {"row": 1, "col": 3, "type": "clue", "down": 4, "right": 0}, # Clue for column below
-            {"row": 1, "col": 4, "type": "block"},
-
-            # --- ROW 2 ---
-            {"row": 2, "col": 0, "type": "clue", "down": 0, "right": 6},
-            {"row": 2, "col": 1, "type": "empty"}, # Ans: 3
-            {"row": 2, "col": 2, "type": "empty"}, # Ans: 1
-            {"row": 2, "col": 3, "type": "empty"}, # Ans: 2
-            {"row": 2, "col": 4, "type": "clue", "down": 1, "right": 0}, # Clue for below
-
-            # --- ROW 3 ---
-            {"row": 3, "col": 0, "type": "block"},
-            {"row": 3, "col": 1, "type": "block"}, # Block logic
-            {"row": 3, "col": 2, "type": "clue", "down": 3, "right": 4}, # Right 4, Down 3 for below
-            {"row": 3, "col": 3, "type": "empty"}, # Ans: 3
-            {"row": 3, "col": 4, "type": "empty"}, # Ans: 1
-
-             # --- ROW 4 ---
-            {"row": 4, "col": 0, "type": "block"},
-            {"row": 4, "col": 1, "type": "block"},
-            {"row": 4, "col": 2, "type": "empty"}, # Ans: 3 (Vertical sum needs to match) 
-            # Wait, Logic check:
-            # Col 2 (index 2): Row 0(11) -> 7+1+3 = 11. Correct.
-            # Col 3 (index 3): Row 1(4) -> 2+1+? No.
-            # Let's simple fix the generated logic below to be perfectly clean:
+    # 2. Column Constraint: Check current continuous vertical run
+    r_start = row
+    while r_start > 0 and board[r_start-1][col] != 0:
+        r_start -= 1
+        
+    r_end = row
+    while r_end < GRID_SIZE - 1 and board[r_end+1][col] != 0:
+        r_end += 1
+        
+    for r in range(r_start, r_end + 1):
+        if board[r][col] == num:
+            return False
             
-            # --- ROW 4 Corrected Logic ---
-            {"row": 4, "col": 3, "type": "empty"}, # Ans: 3
-            {"row": 4, "col": 4, "type": "empty"}, # Ans: 1
-        ]
-    }
-    
-    # RE-WRITING PUZZLE ARRAY MANUALLY TO ENSURE 100% LOGIC MATCH
-    # New valid grid:
-    # X  12 11  X  X
-    # 16  9  7  X  X
-    # 6   3  1  2  X
-    # X   X  4  3  1
-    # X   X  3  1  2
-    
-    # Let's go with a simpler 5x5 that is guaranteed valid:
-    final_solution = [
-        [None, None, None, None, None],
-        [None, 9,    7,    None, None],
-        [None, 3,    1,    2,    None],
-        [None, None, 3,    1,    2   ],
-        [None, None, None, 3,    1   ]
-    ]
-    
-    puzzle_entries = [
-        # R0
-        {"row":0,"col":0,"type":"block"},
-        {"row":0,"col":1,"type":"clue", "down":12, "right":0},
-        {"row":0,"col":2,"type":"clue", "down":11, "right":0},
-        {"row":0,"col":3,"type":"block"},
-        {"row":0,"col":4,"type":"block"},
-        
-        # R1
-        {"row":1,"col":0,"type":"clue", "down":0, "right":16},
-        {"row":1,"col":1,"type":"empty"}, # 9
-        {"row":1,"col":2,"type":"empty"}, # 7
-        {"row":1,"col":3,"type":"clue", "down":6, "right":0},
-        {"row":1,"col":4,"type":"block"},
-        
-        # R2
-        {"row":2,"col":0,"type":"clue", "down":0, "right":6},
-        {"row":2,"col":1,"type":"empty"}, # 3
-        {"row":2,"col":2,"type":"empty"}, # 1
-        {"row":2,"col":3,"type":"empty"}, # 2
-        {"row":2,"col":4,"type":"clue", "down":3, "right":0},
-        
-        # R3
-        {"row":3,"col":0,"type":"block"},
-        {"row":3,"col":1,"type":"block"}, # Or a clue if needed
-        {"row":3,"col":2,"type":"clue", "down":0, "right":6},
-        {"row":3,"col":3,"type":"empty"}, # 3
-        {"row":3,"col":4,"type":"empty"}, # 1
-        {"row":3,"col":4,"type":"empty"}, # 2 is duplicate? Wait, 3+1+2=6. OK.
-        
-        # Actually, let's keep it super clean to avoid bugs.
-        # Minimalist valid 5x5:
-    ]
-    
-    # --- FINAL CLEAN DATA STRUCTURE ---
-    # Solution:
-    # .  12 10  .  .
-    # 16  9  7  .  .
-    # 6   3  1  2  .
-    # .   .  2  1  .
-    # .   .  .  3  1
-    
-    clean_puzzle = [
-        # R0
-        {"row":0,"col":0,"type":"block"},
-        {"row":0,"col":1,"type":"clue", "down":12, "right":0},
-        {"row":0,"col":2,"type":"clue", "down":10, "right":0},
-        {"row":0,"col":3,"type":"clue", "down":6, "right":0}, 
-        {"row":0,"col":4,"type":"block"},
-        
-        # R1 (Right 16) -> 9, 7
-        {"row":1,"col":0,"type":"clue", "down":0, "right":16},
-        {"row":1,"col":1,"type":"empty"}, 
-        {"row":1,"col":2,"type":"empty"},
-        {"row":1,"col":3,"type":"block"}, # Space
-        {"row":1,"col":4,"type":"block"},
+    return True
 
-        # R2 (Right 6) -> 3, 1, 2
-        {"row":2,"col":0,"type":"clue", "down":0, "right":6},
-        {"row":2,"col":1,"type":"empty"},
-        {"row":2,"col":2,"type":"empty"},
-        {"row":2,"col":3,"type":"empty"},
-        {"row":2,"col":4,"type":"clue", "down":1, "right":0}, 
+def solve_kakuro(board):
+    """
+    Backtracking Algorithm to fill the board with valid numbers (1-9).
+    Returns True if solved, False otherwise.
+    """
+    for r in range(GRID_SIZE):
+        for c in range(GRID_SIZE):
+            # If we find an empty playable cell (marked as -1)
+            if board[r][c] == -1:
+                # Try random numbers 1-9 to ensure uniqueness every day
+                nums = list(range(1, 10))
+                random.shuffle(nums)
+                
+                for num in nums:
+                    if is_safe(board, r, c, num):
+                        board[r][c] = num # Place number
+                        
+                        if solve_kakuro(board): # Recurse
+                            return True
+                        
+                        board[r][c] = -1 # Backtrack
+                return False # No number worked here
+    return True
 
-        # R3 (Right 3) -> 2, 1
-        {"row":3,"col":0,"type":"block"},
-        {"row":3,"col":1,"type":"block"},
-        {"row":3,"col":2,"type":"clue", "down":0, "right":3},
-        {"row":3,"col":3,"type":"empty"},
-        {"row":3,"col":4,"type":"empty"},
-        
-        # R4 (Right 4) -> 3, 1
-        {"row":4,"col":0,"type":"block"},
-        {"row":4,"col":1,"type":"block"},
-        {"row":4,"col":2,"type":"block"},
-        {"row":4,"col":3,"type":"clue", "down":0, "right":4},
-        {"row":4,"col":4,"type":"empty"}, # Wait, single cell row?
-    ]
+def generate_puzzle_data():
+    # 1. Pick a random pattern layout
+    layout = random.choice(PATTERNS)
     
-    # Corrected Final valid data
-    final_data = {
-        "date": today,
-        "board_size": 5,
-        "solution": [
-            [None, None, None, None, None],
-            [None, 9,    7,    None, None],
-            [None, 3,    1,    2,    None],
-            [None, None, 2,    3,    None],
-            [None, None, None, 1,    None] 
-        ],
-        "puzzle": [
-            # R0
-            {"row":0, "col":0, "type":"block"},
-            {"row":0, "col":1, "type":"clue", "down":12, "right":0},
-            {"row":0, "col":2, "type":"clue", "down":10, "right":0},
-            {"row":0, "col":3, "type":"clue", "down":6, "right":0},
-            {"row":0, "col":4, "type":"block"},
+    # 2. Create a board (-1 for empty playable, 0 for block)
+    # We copy the layout so we don't modify the original constant
+    board = []
+    for r in range(GRID_SIZE):
+        row = []
+        for c in range(GRID_SIZE):
+            if layout[r][c] == 1:
+                row.append(-1) # Needs filling
+            else:
+                row.append(0)  # Block
+        board.append(row)
+        
+    # 3. Fill the board with valid numbers using AI
+    if not solve_kakuro(board):
+        print("Error: Could not generate a valid puzzle solution. Retrying...")
+        return generate_puzzle_data() # Recursive retry
+    
+    # At this point, 'board' contains the SOLUTION (all numbers filled)
+    solution_grid = [row[:] for row in board] # Deep copy for solution key
+    
+    # 4. Generate Clues based on the Solution
+    puzzle_output = []
+    
+    for r in range(GRID_SIZE):
+        for c in range(GRID_SIZE):
+            cell_data = {"row": r, "col": c}
+            
+            # If it's a number cell (Playable)
+            if board[r][c] > 0:
+                cell_data["type"] = "empty"
+                # Frontend will look for matches against solution_grid
+                
+            # If it's a Block (0), it might contain clues
+            else:
+                down_sum = 0
+                right_sum = 0
+                
+                # Calculate Right Sum (if there are playable cells to the right)
+                if c + 1 < GRID_SIZE and board[r][c+1] > 0:
+                    temp_c = c + 1
+                    while temp_c < GRID_SIZE and board[r][temp_c] > 0:
+                        right_sum += board[r][temp_c]
+                        temp_c += 1
+                
+                # Calculate Down Sum (if there are playable cells below)
+                if r + 1 < GRID_SIZE and board[r+1][c] > 0:
+                    temp_r = r + 1
+                    while temp_r < GRID_SIZE and board[temp_r][c] > 0:
+                        down_sum += board[temp_r][c]
+                        temp_r += 1
+                
+                if down_sum == 0 and right_sum == 0:
+                    cell_data["type"] = "block"
+                else:
+                    cell_data["type"] = "clue"
+                    cell_data["down"] = down_sum
+                    cell_data["right"] = right_sum
+            
+            puzzle_output.append(cell_data)
 
-            # R1 (Sum 16: 9+7)
-            {"row":1, "col":0, "type":"clue", "down":0, "right":16},
-            {"row":1, "col":1, "type":"empty"},
-            {"row":1, "col":2, "type":"empty"},
-            {"row":1, "col":3, "type":"clue", "down":0, "right":0, "type":"block"}, # Just block
-            {"row":1, "col":4, "type":"block"},
+    # Convert solution grid 0s to Nones for JSON standard
+    final_solution = []
+    for r in range(GRID_SIZE):
+        sol_row = []
+        for c in range(GRID_SIZE):
+            if solution_grid[r][c] == 0:
+                sol_row.append(None)
+            else:
+                sol_row.append(solution_grid[r][c])
+        final_solution.append(sol_row)
 
-            # R2 (Sum 6: 3+1+2)
-            {"row":2, "col":0, "type":"clue", "down":0, "right":6},
-            {"row":2, "col":1, "type":"empty"},
-            {"row":2, "col":2, "type":"empty"},
-            {"row":2, "col":3, "type":"empty"},
-            {"row":2, "col":4, "type":"block"},
-
-            # R3 (Sum 5: 2+3) -> Starts at col 2
-            {"row":3, "col":0, "type":"block"},
-            {"row":3, "col":1, "type":"block"},
-            {"row":3, "col":2, "type":"empty"},
-            {"row":3, "col":3, "type":"empty"},
-            {"row":3, "col":4, "type":"block"},
-
-            # R4 (Sum 1) -> Starts at col 3 (Logic fix: Vert sums match?)
-            # C2 Down sum was 10. R1(7)+R2(1)+R3(2) = 10. Perfect.
-            # C3 Down sum was 6. R2(2)+R3(3)+R4(1) = 6. Perfect.
-            {"row":4, "col":0, "type":"block"},
-            {"row":4, "col":1, "type":"block"},
-            {"row":4, "col":2, "type":"block"},
-            {"row":4, "col":3, "type":"empty"}, # 1
-            {"row":4, "col":4, "type":"block"}
-        ]
+    return {
+        "date": datetime.now().strftime("%Y-%m-%d"),
+        "board_size": GRID_SIZE,
+        "solution": final_solution,
+        "puzzle": puzzle_output
     }
 
-    # Add R3 and R4 clues
-    # R3 starts at col 1? No, logic says empty starts at 2. So (3,1) must be clue.
-    # Fix R3:
-    final_data["puzzle"][16] = {"row":3,"col":1,"type":"clue", "down":0, "right":5}
-    # Fix R4:
-    final_data["puzzle"][22] = {"row":4,"col":2,"type":"clue", "down":0, "right":1}
-
-    with open("daily-kakuro.json", "w") as f:
-        json.dump(final_data, f, indent=4)
-    
-    print(f"✅ 5x5 Puzzle generated for {today}")
+def generate_daily_puzzle():
+    try:
+        data = generate_puzzle_data()
+        
+        with open("daily-kakuro.json", "w") as f:
+            json.dump(data, f, indent=4)
+        
+        print(f"✅ Generated FRESH Unique Puzzle for {data['date']}")
+        
+    except RecursionError:
+        print("⚠️ Generation timed out. Trying again...")
+        generate_daily_puzzle()
 
 if __name__ == "__main__":
     generate_daily_puzzle()
