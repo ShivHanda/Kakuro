@@ -1,8 +1,15 @@
 :root {
-    --bg-color: #f3f4f6;
-    --board-bg: #111; /* Grid lines color essentially */
-    --cell-size: 50px; /* Base size */
-    --accent-color: #2563eb;
+    --bg-color: #f8f9fa;
+    --grid-bg: #ffffff;
+    --border-thick: 2px solid #343a40;
+    --border-thin: 1px solid #dee2e6;
+    --text-primary: #212529;
+    --accent-color: #0d6efd; 
+    --clue-bg: #e9ecef; /* Light Grey for Clue/Block cells */
+    --clue-text: #495057;
+    --line-color: #adb5bd;
+    --error-color: #f8d7da;
+    --highlight-cell: #e7f1ff;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -10,122 +17,124 @@
 body {
     font-family: 'Inter', sans-serif;
     background-color: var(--bg-color);
+    color: var(--text-primary);
     display: flex;
     justify-content: center;
-    padding: 20px;
     min-height: 100vh;
+    padding: 20px;
 }
 
-.app-container { width: 100%; max-width: 800px; text-align: center; }
+.app-container { width: 100%; max-width: 900px; text-align: center; }
 
-header { margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
-h1 { color: #1f2937; }
+header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 20px; border-bottom: 2px solid #e9ecef; padding-bottom: 15px;
+}
+
+h1 { font-size: 1.5rem; color: #343a40; }
+
+.game-layout {
+    display: flex; flex-direction: column; align-items: center; gap: 30px;
+}
 
 /* --- KAKURO BOARD --- */
 .kakuro-board {
     display: grid;
-    /* Grid columns JS set karega based on puzzle size */
-    gap: 1px; /* Creates the border lines */
-    background-color: var(--board-bg);
-    border: 2px solid #111;
+    /* Columns will be set by JS */
+    gap: 0; 
+    background-color: var(--grid-bg);
+    border: var(--border-thick);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
     margin: 0 auto;
-    width: fit-content;
 }
 
 .cell {
-    width: var(--cell-size);
-    height: var(--cell-size);
-    background-color: white;
+    width: 60px; /* Bigger cells for better visibility */
+    height: 60px;
+    border-right: var(--border-thin);
+    border-bottom: var(--border-thin);
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.2rem;
-    font-weight: 600;
+    font-size: 1.5rem;
+    font-weight: 500;
     cursor: pointer;
     position: relative;
     user-select: none;
+    background-color: white;
 }
 
-/* 1. SOLID BLOCK (Empty Black Cell) */
+/* 1. SOLID BLOCK */
 .cell.block {
-    background-color: #222; /* Almost black */
+    background-color: var(--clue-bg); 
     cursor: default;
 }
 
-/* 2. CLUE CELL (The Diagonal One) */
+/* 2. CLUE CELL */
 .cell.clue {
-    background-color: #333; /* Dark Grey */
-    color: white;
+    background-color: var(--clue-bg);
+    color: var(--clue-text);
     cursor: default;
-    /* The Diagonal Line Magic: linear-gradient */
+    /* Cleaner Diagonal Line */
     background-image: linear-gradient(
         to bottom right, 
-        transparent 46%, 
-        #777 47%, 
-        #777 53%, 
-        transparent 54%
+        transparent 48%, 
+        var(--line-color) 49%, 
+        var(--line-color) 51%, 
+        transparent 52%
     );
 }
 
-/* Positioning the tiny numbers in Clue Cell */
+/* Tiny numbers positioning - Fixed to not touch the line */
 .clue-val {
     position: absolute;
-    font-size: 0.75rem;
+    font-size: 0.85rem; 
     font-weight: 700;
     line-height: 1;
 }
 
 .clue-down {
-    bottom: 4px;
-    left: 4px;
-    color: #fff;
+    bottom: 5px;
+    left: 5px; 
 }
 
 .clue-right {
-    top: 4px;
-    right: 4px;
-    color: #fff;
+    top: 5px;
+    right: 5px;
 }
 
-/* 3. INPUT CELL (White, Playable) */
-.cell.input.selected {
-    background-color: #bfdbfe; /* Light Blue */
-}
-.cell.input {
-    color: var(--accent-color);
-}
+/* 3. INPUT CELL */
+.cell.input { color: var(--accent-color); font-weight: 600; }
+.cell.input:hover { background-color: #f1f3f5; }
+.cell.input.selected { background-color: var(--highlight-cell); border: 2px solid var(--accent-color); }
+
+/* Error State */
 .cell.error {
-    background-color: #fecaca; /* Red tint */
-    color: #dc2626;
+    background-color: var(--error-color);
+    color: #842029;
 }
 
 /* --- CONTROLS --- */
-.game-layout {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-}
-
-.numpad {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 8px;
-    margin-top: 10px;
-}
-
+.controls-sidebar { width: 100%; max-width: 400px; }
+.numpad { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 10px; }
 .num-btn {
-    padding: 15px;
-    font-size: 1.2rem;
-    background: white;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    cursor: pointer;
+    padding: 15px; font-size: 1.2rem; background: white; border: 1px solid #dee2e6;
+    border-radius: 6px; cursor: pointer; color: var(--accent-color); font-weight: 600;
 }
-.num-btn:active { background: #e5e7eb; }
+.num-btn:active { background-color: var(--highlight-cell); transform: translateY(1px); }
+.action-btn { background-color: #fff0f1; color: #dc3545; border-color: #f5c2c7; }
+
+.secondary-btn {
+    width: 100%; padding: 12px; background-color: #e9ecef; margin-top: 15px;
+    color: #495057; font-weight: 600; border: 1px solid #ced4da; border-radius: 6px;
+}
+.secondary-btn:hover { background-color: #dee2e6; }
+.home-link { display: block; margin-top: 15px; color: #6c757d; text-decoration: none; font-size: 0.9rem; }
+.home-link:hover { text-decoration: underline; }
 
 /* Desktop Adjustment */
-@media (min-width: 768px) {
+@media (min-width: 850px) {
     .game-layout { flex-direction: row; justify-content: center; align-items: flex-start; }
-    .numpad { display: none; } /* Hide numpad on desktop */
+    .numpad { display: none; } 
+    .controls-sidebar { width: 250px; text-align: left; }
 }
