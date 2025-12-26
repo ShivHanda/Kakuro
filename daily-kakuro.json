@@ -1,8 +1,9 @@
 {
     "date": "2025-12-26",
-    "board_size": 4,
+    "board_size": 5,
     "solution": [
         [
+            null,
             null,
             null,
             null,
@@ -12,19 +13,29 @@
             null,
             9,
             7,
+            null,
             null
         ],
         [
             null,
             3,
             1,
-            2
+            2,
+            null
         ],
         [
             null,
             null,
+            2,
             3,
-            1
+            null
+        ],
+        [
+            null,
+            null,
+            null,
+            1,
+            null
         ]
     ],
     "puzzle": [
@@ -44,15 +55,20 @@
             "row": 0,
             "col": 2,
             "type": "clue",
-            "down": 11,
+            "down": 10,
             "right": 0
         },
         {
             "row": 0,
             "col": 3,
             "type": "clue",
-            "down": 3,
+            "down": 6,
             "right": 0
+        },
+        {
+            "row": 0,
+            "col": 4,
+            "type": "block"
         },
         {
             "row": 1,
@@ -74,6 +90,13 @@
         {
             "row": 1,
             "col": 3,
+            "type": "block",
+            "down": 0,
+            "right": 0
+        },
+        {
+            "row": 1,
+            "col": 4,
             "type": "block"
         },
         {
@@ -99,6 +122,11 @@
             "type": "empty"
         },
         {
+            "row": 2,
+            "col": 4,
+            "type": "block"
+        },
+        {
             "row": 3,
             "col": 0,
             "type": "block"
@@ -108,7 +136,7 @@
             "col": 1,
             "type": "clue",
             "down": 0,
-            "right": 4
+            "right": 5
         },
         {
             "row": 3,
@@ -119,6 +147,38 @@
             "row": 3,
             "col": 3,
             "type": "empty"
+        },
+        {
+            "row": 3,
+            "col": 4,
+            "type": "block"
+        },
+        {
+            "row": 4,
+            "col": 0,
+            "type": "block"
+        },
+        {
+            "row": 4,
+            "col": 1,
+            "type": "block"
+        },
+        {
+            "row": 4,
+            "col": 2,
+            "type": "clue",
+            "down": 0,
+            "right": 1
+        },
+        {
+            "row": 4,
+            "col": 3,
+            "type": "empty"
+        },
+        {
+            "row": 4,
+            "col": 4,
+            "type": "block"
         }
     ]
 }
