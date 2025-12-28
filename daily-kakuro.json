@@ -1,5 +1,5 @@
 {
-    "date": "2025-12-27",
+    "date": "2025-12-28",
     "board_size": 5,
     "solution": [
         [
@@ -11,16 +11,16 @@
         ],
         [
             null,
-            1,
-            2,
+            7,
+            8,
             null,
             null
         ],
         [
             null,
-            4,
-            3,
-            1,
+            5,
+            9,
+            6,
             null
         ],
         [
@@ -28,14 +28,14 @@
             null,
             7,
             2,
-            3
+            1
         ],
         [
             null,
             null,
             null,
-            5,
-            6
+            3,
+            8
         ]
     ],
     "puzzle": [
@@ -48,14 +48,14 @@
             "row": 0,
             "col": 1,
             "type": "clue",
-            "down": 5,
+            "down": 12,
             "right": 0
         },
         {
             "row": 0,
             "col": 2,
             "type": "clue",
-            "down": 12,
+            "down": 24,
             "right": 0
         },
         {
@@ -73,7 +73,7 @@
             "col": 0,
             "type": "clue",
             "down": 0,
-            "right": 3
+            "right": 15
         },
         {
             "row": 1,
@@ -89,7 +89,7 @@
             "row": 1,
             "col": 3,
             "type": "clue",
-            "down": 8,
+            "down": 11,
             "right": 0
         },
         {
@@ -102,7 +102,7 @@
             "col": 0,
             "type": "clue",
             "down": 0,
-            "right": 8
+            "right": 20
         },
         {
             "row": 2,
@@ -136,7 +136,7 @@
             "col": 1,
             "type": "clue",
             "down": 0,
-            "right": 12
+            "right": 10
         },
         {
             "row": 3,
