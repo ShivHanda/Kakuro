@@ -1,5 +1,5 @@
 {
-    "date": "2026-01-03",
+    "date": "2026-01-04",
     "board_size": 5,
     "solution": [
         [
@@ -11,31 +11,31 @@
         ],
         [
             null,
-            3,
-            5,
-            null,
-            null
-        ],
-        [
-            null,
-            7,
-            2,
-            3,
-            null
-        ],
-        [
-            null,
-            null,
             6,
-            5,
+            3,
+            8,
+            1
+        ],
+        [
+            null,
+            9,
+            6,
+            4,
+            7
+        ],
+        [
+            null,
+            2,
+            7,
+            6,
             3
         ],
         [
             null,
-            null,
-            null,
-            4,
-            9
+            5,
+            2,
+            3,
+            6
         ]
     ],
     "puzzle": [
@@ -48,32 +48,36 @@
             "row": 0,
             "col": 1,
             "type": "clue",
-            "down": 10,
+            "down": 22,
             "right": 0
         },
         {
             "row": 0,
             "col": 2,
             "type": "clue",
-            "down": 13,
+            "down": 18,
             "right": 0
         },
         {
             "row": 0,
             "col": 3,
-            "type": "block"
+            "type": "clue",
+            "down": 21,
+            "right": 0
         },
         {
             "row": 0,
             "col": 4,
-            "type": "block"
+            "type": "clue",
+            "down": 17,
+            "right": 0
         },
         {
             "row": 1,
             "col": 0,
             "type": "clue",
             "down": 0,
-            "right": 8
+            "right": 18
         },
         {
             "row": 1,
@@ -88,21 +92,19 @@
         {
             "row": 1,
             "col": 3,
-            "type": "clue",
-            "down": 12,
-            "right": 0
+            "type": "empty"
         },
         {
             "row": 1,
             "col": 4,
-            "type": "block"
+            "type": "empty"
         },
         {
             "row": 2,
             "col": 0,
             "type": "clue",
             "down": 0,
-            "right": 12
+            "right": 26
         },
         {
             "row": 2,
@@ -122,21 +124,19 @@
         {
             "row": 2,
             "col": 4,
-            "type": "clue",
-            "down": 12,
-            "right": 0
+            "type": "empty"
         },
         {
             "row": 3,
             "col": 0,
-            "type": "block"
+            "type": "clue",
+            "down": 0,
+            "right": 18
         },
         {
             "row": 3,
             "col": 1,
-            "type": "clue",
-            "down": 0,
-            "right": 14
+            "type": "empty"
         },
         {
             "row": 3,
@@ -156,19 +156,19 @@
         {
             "row": 4,
             "col": 0,
-            "type": "block"
+            "type": "clue",
+            "down": 0,
+            "right": 16
         },
         {
             "row": 4,
             "col": 1,
-            "type": "block"
+            "type": "empty"
         },
         {
             "row": 4,
             "col": 2,
-            "type": "clue",
-            "down": 0,
-            "right": 13
+            "type": "empty"
         },
         {
             "row": 4,
