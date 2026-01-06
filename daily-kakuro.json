@@ -1,5 +1,5 @@
 {
-    "date": "2026-01-05",
+    "date": "2026-01-06",
     "board_size": 5,
     "solution": [
         [
@@ -11,31 +11,31 @@
         ],
         [
             null,
-            null,
-            8,
             1,
+            5,
+            null,
             null
         ],
         [
             null,
-            1,
-            4,
             8,
-            6
+            2,
+            4,
+            null
         ],
         [
+            null,
+            null,
+            4,
+            6,
+            7
+        ],
+        [
+            null,
+            null,
             null,
             3,
-            1,
-            null,
-            null
-        ],
-        [
-            null,
-            null,
-            null,
-            null,
-            null
+            2
         ]
     ],
     "puzzle": [
@@ -47,62 +47,62 @@
         {
             "row": 0,
             "col": 1,
-            "type": "block"
-        },
-        {
-            "row": 0,
-            "col": 2,
-            "type": "clue",
-            "down": 13,
-            "right": 0
-        },
-        {
-            "row": 0,
-            "col": 3,
             "type": "clue",
             "down": 9,
             "right": 0
         },
         {
             "row": 0,
-            "col": 4,
-            "type": "block"
-        },
-        {
-            "row": 1,
-            "col": 0,
-            "type": "block"
-        },
-        {
-            "row": 1,
-            "col": 1,
-            "type": "clue",
-            "down": 4,
-            "right": 9
-        },
-        {
-            "row": 1,
             "col": 2,
-            "type": "empty"
-        },
-        {
-            "row": 1,
-            "col": 3,
-            "type": "empty"
-        },
-        {
-            "row": 1,
-            "col": 4,
             "type": "clue",
-            "down": 6,
+            "down": 11,
             "right": 0
         },
         {
+            "row": 0,
+            "col": 3,
+            "type": "block"
+        },
+        {
+            "row": 0,
+            "col": 4,
+            "type": "block"
+        },
+        {
+            "row": 1,
+            "col": 0,
+            "type": "clue",
+            "down": 0,
+            "right": 6
+        },
+        {
+            "row": 1,
+            "col": 1,
+            "type": "empty"
+        },
+        {
+            "row": 1,
+            "col": 2,
+            "type": "empty"
+        },
+        {
+            "row": 1,
+            "col": 3,
+            "type": "clue",
+            "down": 13,
+            "right": 0
+        },
+        {
+            "row": 1,
+            "col": 4,
+            "type": "block"
+        },
+        {
             "row": 2,
             "col": 0,
             "type": "clue",
             "down": 0,
-            "right": 19
+            "right": 14
         },
         {
             "row": 2,
@@ -122,19 +122,21 @@
         {
             "row": 2,
             "col": 4,
-            "type": "empty"
+            "type": "clue",
+            "down": 9,
+            "right": 0
         },
         {
             "row": 3,
             "col": 0,
+            "type": "block"
+        },
+        {
+            "row": 3,
+            "col": 1,
             "type": "clue",
             "down": 0,
-            "right": 4
-        },
-        {
-            "row": 3,
-            "col": 1,
-            "type": "empty"
+            "right": 17
         },
         {
             "row": 3,
@@ -144,12 +146,12 @@
         {
             "row": 3,
             "col": 3,
-            "type": "block"
+            "type": "empty"
         },
         {
             "row": 3,
             "col": 4,
-            "type": "block"
+            "type": "empty"
         },
         {
             "row": 4,
@@ -164,17 +166,19 @@
         {
             "row": 4,
             "col": 2,
-            "type": "block"
+            "type": "clue",
+            "down": 0,
+            "right": 5
         },
         {
             "row": 4,
             "col": 3,
-            "type": "block"
+            "type": "empty"
         },
         {
             "row": 4,
             "col": 4,
-            "type": "block"
+            "type": "empty"
         }
     ]
 }
