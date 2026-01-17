@@ -1,4 +1,8 @@
 // --- Global State ---
+let timerInterval;
+let secondsElapsed = 0;
+let isGameActive = true; // Ensure this is initialized
+let hasStarted = false;  // Track if user clicked yet
 let kakuroData = {};
 let solutionGrid = []; 
 let gridSize = 0;
@@ -43,7 +47,12 @@ async function initGame() {
         if (!response.ok) throw new Error("File not found. Run generate.py!");
         
         const gameData = await response.json();
-        document.getElementById('date-display').textContent = gameData.date;
+        document.getElementById('date-display').textContent = formatDate(gameData.date);
+        stopTimer();
+        secondsElapsed = 0;
+        document.getElementById('timer').textContent = "00:00";
+        hasStarted = false;
+        isGameActive = true;
         gridSize = gameData.board_size;
         solutionGrid = gameData.solution;
 
@@ -110,6 +119,11 @@ function renderKakuroBoard() {
 }
 
 function selectCell(r, c) {
+    if (!isGameActive) return;
+    if (!hasStarted) {
+        hasStarted = true;
+        startTimer();
+    }
     if (selectedCell) {
         const prev = document.querySelector(`.cell[data-r='${selectedCell.r}'][data-c='${selectedCell.c}']`);
         if (prev) prev.classList.remove('selected');
@@ -172,6 +186,9 @@ function checkWinCondition() {
     }
 
     if (correctCount === totalNeeded) {
+        isGameActive = false;
+        stopTimer();
+        document.getElementById('final-time').textContent = document.getElementById('timer').textContent;
         const overlay = document.getElementById('win-overlay');
         overlay.classList.remove('hidden');
         if (window.confetti) confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
@@ -214,4 +231,26 @@ function setupEventListeners() {
 
     const solveBtn = document.getElementById('solve-btn');
     if (solveBtn) solveBtn.addEventListener('click', revealSolution);
+}
+
+function startTimer() {
+    if (timerInterval) return;
+    timerInterval = setInterval(() => {
+        secondsElapsed++;
+        const mins = Math.floor(secondsElapsed / 60).toString().padStart(2, '0');
+        const secs = (secondsElapsed % 60).toString().padStart(2, '0');
+        document.getElementById('timer').textContent = `${mins}:${secs}`;
+    }, 1000);
+}
+
+function stopTimer() {
+    clearInterval(timerInterval);
+    timerInterval = null;
+}
+
+function formatDate(isoDate) {
+    // Handles "YYYY-MM-DD" string from JSON
+    if(!isoDate) return "Today's Puzzle";
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(isoDate).toLocaleDateString(undefined, options);
 }
