@@ -42,11 +42,12 @@ body {
     font-family: 'Inter', sans-serif;
     background-color: var(--bg-color);
     color: var(--text-primary);
-    display: flex; justify-content: center; min-height: 100vh; padding: 20px;
+    display: flex; justify-content: center; min-height: 100vh; overflow: hidden; padding: 20px;
     transition: background-color 0.2s linear, color 0.2s linear;
 }
 
-.app-container { width: 100%; max-width: 900px; text-align: center; }
+.app-container { width: 100%; max-width: 900px; max-height: 100vh; overflow-y: auto; text-align: center; scrollbar-width: none;}
+.app-container::-webkit-scrollbar { display: none; }
 
 header {
     display: flex; justify-content: space-between; align-items: center;
@@ -99,7 +100,7 @@ body.dark-mode .modal { background-color: #2d3748; border: 1px solid #4a5568; }
     border-right: var(--border-thin);
     border-bottom: var(--border-thin);
     display: flex; justify-content: center; align-items: center;
-    font-size: 1.5rem; font-weight: 500;
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
     cursor: pointer; position: relative; user-select: none;
     background-color: var(--grid-bg);
     transition: background-color 0.1s;
@@ -173,4 +174,18 @@ body.dark-mode .action-btn { background-color: #742a2a; color: #feb2b2; border-c
     .game-layout { flex-direction: row; justify-content: center; align-items: flex-start; }
     .numpad { display: none; } 
     .controls-sidebar { width: 250px; text-align: left; }
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.info-bar {
+    display: flex;
+    gap: 20px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #495057;
 }
