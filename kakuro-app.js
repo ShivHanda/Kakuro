@@ -74,6 +74,7 @@ function renderKakuroBoard() {
     const board = document.getElementById('game-board');
     board.innerHTML = '';
     board.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
+    board.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
 
     for (let r = 0; r < gridSize; r++) {
         for (let c = 0; c < gridSize; c++) {
