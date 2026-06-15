@@ -1,5 +1,5 @@
 {
-    "uid": "29399",
+    "uid": "66880",
     "board_size": 9,
     "solution": [
         [
@@ -15,91 +15,91 @@
         ],
         [
             null,
-            9,
-            2,
-            null,
-            2,
-            1,
-            null,
-            5,
-            1
-        ],
-        [
-            null,
-            3,
-            1,
             7,
-            8,
-            6,
-            4,
             9,
-            2
-        ],
-        [
             null,
-            null,
-            null,
-            2,
-            9,
             null,
             2,
             1,
+            4,
             null
         ],
         [
             null,
-            8,
             9,
-            1,
-            7,
-            null,
-            null,
+            6,
             8,
-            4
-        ],
-        [
             null,
             1,
             3,
-            null,
-            null,
-            5,
-            3,
-            6,
-            1
-        ],
-        [
-            null,
-            null,
-            1,
-            3,
-            null,
-            6,
-            1,
-            null,
-            null
-        ],
-        [
-            null,
-            8,
-            6,
-            7,
-            1,
-            4,
             2,
-            3,
+            5
+        ],
+        [
+            null,
+            null,
+            null,
+            9,
+            8,
+            null,
+            null,
+            7,
             9
         ],
         [
             null,
-            3,
-            2,
-            null,
+            7,
             5,
-            2,
+            6,
+            9,
+            8,
             null,
-            1,
+            9,
             8
+        ],
+        [
+            null,
+            9,
+            7,
+            null,
+            6,
+            9,
+            8,
+            5,
+            7
+        ],
+        [
+            null,
+            3,
+            1,
+            null,
+            null,
+            7,
+            9,
+            null,
+            null
+        ],
+        [
+            null,
+            4,
+            2,
+            1,
+            3,
+            null,
+            7,
+            8,
+            9
+        ],
+        [
+            null,
+            null,
+            6,
+            2,
+            1,
+            null,
+            null,
+            9,
+            7
         ]
     ],
     "puzzle": [
@@ -112,14 +112,14 @@
             "row": 0,
             "col": 1,
             "type": "clue",
-            "down": 12,
+            "down": 16,
             "right": 0
         },
         {
             "row": 0,
             "col": 2,
             "type": "clue",
-            "down": 3,
+            "down": 15,
             "right": 0
         },
         {
@@ -130,113 +130,115 @@
         {
             "row": 0,
             "col": 4,
-            "type": "clue",
-            "down": 26,
-            "right": 0
+            "type": "block"
         },
         {
             "row": 0,
             "col": 5,
             "type": "clue",
-            "down": 7,
+            "down": 3,
             "right": 0
         },
         {
             "row": 0,
             "col": 6,
-            "type": "block"
+            "type": "clue",
+            "down": 4,
+            "right": 0
         },
         {
             "row": 0,
             "col": 7,
+            "type": "clue",
+            "down": 27,
+            "right": 0
+        },
+        {
+            "row": 0,
+            "col": 8,
+            "type": "block"
+        },
+        {
+            "row": 1,
+            "col": 0,
+            "type": "clue",
+            "down": 0,
+            "right": 16
+        },
+        {
+            "row": 1,
+            "col": 1,
+            "type": "empty"
+        },
+        {
+            "row": 1,
+            "col": 2,
+            "type": "empty"
+        },
+        {
+            "row": 1,
+            "col": 3,
+            "type": "clue",
+            "down": 23,
+            "right": 0
+        },
+        {
+            "row": 1,
+            "col": 4,
+            "type": "clue",
+            "down": 0,
+            "right": 7
+        },
+        {
+            "row": 1,
+            "col": 5,
+            "type": "empty"
+        },
+        {
+            "row": 1,
+            "col": 6,
+            "type": "empty"
+        },
+        {
+            "row": 1,
+            "col": 7,
+            "type": "empty"
+        },
+        {
+            "row": 1,
+            "col": 8,
             "type": "clue",
             "down": 29,
             "right": 0
         },
         {
-            "row": 0,
-            "col": 8,
-            "type": "clue",
-            "down": 3,
-            "right": 0
-        },
-        {
-            "row": 1,
+            "row": 2,
             "col": 0,
             "type": "clue",
             "down": 0,
+            "right": 23
+        },
+        {
+            "row": 2,
+            "col": 1,
+            "type": "empty"
+        },
+        {
+            "row": 2,
+            "col": 2,
+            "type": "empty"
+        },
+        {
+            "row": 2,
+            "col": 3,
+            "type": "empty"
+        },
+        {
+            "row": 2,
+            "col": 4,
+            "type": "clue",
+            "down": 23,
             "right": 11
-        },
-        {
-            "row": 1,
-            "col": 1,
-            "type": "empty"
-        },
-        {
-            "row": 1,
-            "col": 2,
-            "type": "empty"
-        },
-        {
-            "row": 1,
-            "col": 3,
-            "type": "clue",
-            "down": 10,
-            "right": 3
-        },
-        {
-            "row": 1,
-            "col": 4,
-            "type": "empty"
-        },
-        {
-            "row": 1,
-            "col": 5,
-            "type": "empty"
-        },
-        {
-            "row": 1,
-            "col": 6,
-            "type": "clue",
-            "down": 6,
-            "right": 6
-        },
-        {
-            "row": 1,
-            "col": 7,
-            "type": "empty"
-        },
-        {
-            "row": 1,
-            "col": 8,
-            "type": "empty"
-        },
-        {
-            "row": 2,
-            "col": 0,
-            "type": "clue",
-            "down": 0,
-            "right": 40
-        },
-        {
-            "row": 2,
-            "col": 1,
-            "type": "empty"
-        },
-        {
-            "row": 2,
-            "col": 2,
-            "type": "empty"
-        },
-        {
-            "row": 2,
-            "col": 3,
-            "type": "empty"
-        },
-        {
-            "row": 2,
-            "col": 4,
-            "type": "empty"
         },
         {
             "row": 2,
@@ -267,7 +269,7 @@
             "row": 3,
             "col": 1,
             "type": "clue",
-            "down": 9,
+            "down": 23,
             "right": 0
         },
         {
@@ -275,7 +277,7 @@
             "col": 2,
             "type": "clue",
             "down": 21,
-            "right": 11
+            "right": 17
         },
         {
             "row": 3,
@@ -291,13 +293,15 @@
             "row": 3,
             "col": 5,
             "type": "clue",
-            "down": 0,
-            "right": 3
+            "down": 24,
+            "right": 0
         },
         {
             "row": 3,
             "col": 6,
-            "type": "empty"
+            "type": "clue",
+            "down": 0,
+            "right": 16
         },
         {
             "row": 3,
@@ -307,16 +311,14 @@
         {
             "row": 3,
             "col": 8,
-            "type": "clue",
-            "down": 5,
-            "right": 0
+            "type": "empty"
         },
         {
             "row": 4,
             "col": 0,
             "type": "clue",
             "down": 0,
-            "right": 25
+            "right": 35
         },
         {
             "row": 4,
@@ -341,16 +343,14 @@
         {
             "row": 4,
             "col": 5,
-            "type": "clue",
-            "down": 17,
-            "right": 0
+            "type": "empty"
         },
         {
             "row": 4,
             "col": 6,
             "type": "clue",
-            "down": 6,
-            "right": 12
+            "down": 24,
+            "right": 17
         },
         {
             "row": 4,
@@ -367,7 +367,7 @@
             "col": 0,
             "type": "clue",
             "down": 0,
-            "right": 4
+            "right": 16
         },
         {
             "row": 5,
@@ -383,15 +383,13 @@
             "row": 5,
             "col": 3,
             "type": "clue",
-            "down": 10,
-            "right": 0
+            "down": 0,
+            "right": 35
         },
         {
             "row": 5,
             "col": 4,
-            "type": "clue",
-            "down": 0,
-            "right": 15
+            "type": "empty"
         },
         {
             "row": 5,
@@ -415,144 +413,146 @@
         },
         {
             "row": 6,
+            "col": 0,
+            "type": "clue",
+            "down": 0,
+            "right": 4
+        },
+        {
+            "row": 6,
+            "col": 1,
+            "type": "empty"
+        },
+        {
+            "row": 6,
+            "col": 2,
+            "type": "empty"
+        },
+        {
+            "row": 6,
+            "col": 3,
+            "type": "clue",
+            "down": 3,
+            "right": 0
+        },
+        {
+            "row": 6,
+            "col": 4,
+            "type": "clue",
+            "down": 4,
+            "right": 16
+        },
+        {
+            "row": 6,
+            "col": 5,
+            "type": "empty"
+        },
+        {
+            "row": 6,
+            "col": 6,
+            "type": "empty"
+        },
+        {
+            "row": 6,
+            "col": 7,
+            "type": "clue",
+            "down": 17,
+            "right": 0
+        },
+        {
+            "row": 6,
+            "col": 8,
+            "type": "clue",
+            "down": 16,
+            "right": 0
+        },
+        {
+            "row": 7,
+            "col": 0,
+            "type": "clue",
+            "down": 0,
+            "right": 10
+        },
+        {
+            "row": 7,
+            "col": 1,
+            "type": "empty"
+        },
+        {
+            "row": 7,
+            "col": 2,
+            "type": "empty"
+        },
+        {
+            "row": 7,
+            "col": 3,
+            "type": "empty"
+        },
+        {
+            "row": 7,
+            "col": 4,
+            "type": "empty"
+        },
+        {
+            "row": 7,
+            "col": 5,
+            "type": "clue",
+            "down": 0,
+            "right": 24
+        },
+        {
+            "row": 7,
+            "col": 6,
+            "type": "empty"
+        },
+        {
+            "row": 7,
+            "col": 7,
+            "type": "empty"
+        },
+        {
+            "row": 7,
+            "col": 8,
+            "type": "empty"
+        },
+        {
+            "row": 8,
             "col": 0,
             "type": "block"
         },
         {
-            "row": 6,
-            "col": 1,
-            "type": "clue",
-            "down": 11,
-            "right": 4
-        },
-        {
-            "row": 6,
-            "col": 2,
-            "type": "empty"
-        },
-        {
-            "row": 6,
-            "col": 3,
-            "type": "empty"
-        },
-        {
-            "row": 6,
-            "col": 4,
-            "type": "clue",
-            "down": 6,
-            "right": 7
-        },
-        {
-            "row": 6,
-            "col": 5,
-            "type": "empty"
-        },
-        {
-            "row": 6,
-            "col": 6,
-            "type": "empty"
-        },
-        {
-            "row": 6,
-            "col": 7,
-            "type": "clue",
-            "down": 4,
-            "right": 0
-        },
-        {
-            "row": 6,
-            "col": 8,
-            "type": "clue",
-            "down": 17,
-            "right": 0
-        },
-        {
-            "row": 7,
-            "col": 0,
-            "type": "clue",
-            "down": 0,
-            "right": 40
-        },
-        {
-            "row": 7,
-            "col": 1,
-            "type": "empty"
-        },
-        {
-            "row": 7,
-            "col": 2,
-            "type": "empty"
-        },
-        {
-            "row": 7,
-            "col": 3,
-            "type": "empty"
-        },
-        {
-            "row": 7,
-            "col": 4,
-            "type": "empty"
-        },
-        {
-            "row": 7,
-            "col": 5,
-            "type": "empty"
-        },
-        {
-            "row": 7,
-            "col": 6,
-            "type": "empty"
-        },
-        {
-            "row": 7,
-            "col": 7,
-            "type": "empty"
-        },
-        {
-            "row": 7,
-            "col": 8,
-            "type": "empty"
-        },
-        {
-            "row": 8,
-            "col": 0,
-            "type": "clue",
-            "down": 0,
-            "right": 5
-        },
-        {
             "row": 8,
             "col": 1,
-            "type": "empty"
-        },
-        {
-            "row": 8,
-            "col": 2,
-            "type": "empty"
-        },
-        {
-            "row": 8,
-            "col": 3,
-            "type": "clue",
-            "down": 0,
-            "right": 7
-        },
-        {
-            "row": 8,
-            "col": 4,
-            "type": "empty"
-        },
-        {
-            "row": 8,
-            "col": 5,
-            "type": "empty"
-        },
-        {
-            "row": 8,
-            "col": 6,
             "type": "clue",
             "down": 0,
             "right": 9
+        },
+        {
+            "row": 8,
+            "col": 2,
+            "type": "empty"
+        },
+        {
+            "row": 8,
+            "col": 3,
+            "type": "empty"
+        },
+        {
+            "row": 8,
+            "col": 4,
+            "type": "empty"
+        },
+        {
+            "row": 8,
+            "col": 5,
+            "type": "block"
+        },
+        {
+            "row": 8,
+            "col": 6,
+            "type": "clue",
+            "down": 0,
+            "right": 16
         },
         {
             "row": 8,
@@ -565,5 +565,5 @@
             "type": "empty"
         }
     ],
-    "date": "2026-06-14"
+    "date": "2026-06-15"
 }
